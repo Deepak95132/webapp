@@ -8,17 +8,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
- - run: |
-        IDTOKEN=$(curl -H "Authorization: bearer  ${{steps.script.outputs.TOKEN}}" ${{steps.script.outputs.IDTOKENURL}}  -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
-        echo $IDTOKEN
-        jwtd() {
-            if [[ -x $(command -v jq) ]]; then
-                jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
-                echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"
-            fi
-        }
-        jwtd $IDTOKEN
-        echo "idToken=${IDTOKEN}" >> $GITHUB_OUTPUT
+ 
   setup-prepare-list:
     name: Setup, Prepare,
     runs-on: ubuntu-latest
@@ -30,7 +20,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
+    - run: |
+        IDTOKEN=$(curl -H "Authorization: bearer  ${{steps.script.outputs.TOKEN}}" ${{steps.script.outputs.IDTOKENURL}}  -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
+        echo $IDTOKEN
+        jwtd() {
+            if [[ -x $(command -v jq) ]]; then
+                jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
+                echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"
+            fi
+        }
+        jwtd $IDTOKEN
+        echo "idToken=${IDTOKEN}" >> $GITHUB_OUTPUT
     # Configure Workload Identity Federation and generate an access token .
     - id: 'auth'
       name: 'Authenticate to Google Cloud'

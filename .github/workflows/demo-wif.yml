@@ -6,8 +6,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GKE_CLUSTER: kustomize-demo-cluster 
-  GKE_ZONE: us-central1-c
+ 
   ENVIRONMENT: dev
 
 jobs:

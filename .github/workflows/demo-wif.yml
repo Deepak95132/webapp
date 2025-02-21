@@ -21,7 +21,3 @@ jobs:
         script: |
           const token = await core.getIDToken("https://composite-set-363417.svc.id.goog")
           core.setOutput('oidc_token', token)
-
-    - name: 'Use OIDC Token'
-      run: echo "OIDC Token is ${{ steps.get_oidc_token.outputs.oidc_token }}"
-      # You can then use this token to authenticate to Google Cloud

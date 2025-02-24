@@ -47,6 +47,6 @@ jobs:
       run: |
           echo "OIDC_TOKEN=${{ steps.auth.outputs.access_token }}" > .env
           javac -d ./classes src/main/java/com/cloudx/webapp/YourJavaApp.java
-          java -cp ./classes com.webapp.YourJavaApp
+          java -cp ./classes com/cloudx/webapp/YourJavaApp
       env:
           OIDC_TOKEN: ${{ steps.auth.outputs.access_token }}

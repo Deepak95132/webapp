@@ -31,8 +31,11 @@ jobs:
         token_format: 'access_token'
         workload_identity_provider:  ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-    - name: Use Credentials
-      run: cat ${{ github.workspace }}/webapp/gha-creds-e824f378e664f439.json
+    - name: 'Echo the Access Token'
+      run: |
+        echo "Access Token: ${{ steps.auth.outputs.access_token }}"
+        
+
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials

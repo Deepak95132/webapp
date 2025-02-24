@@ -5,7 +5,7 @@ public class YourJavaApp {
         String token = System.getenv("OIDC_TOKEN");
         System.out.println("Token Retrieved in Java App: " + token);
         System.out.println("Token length: " + token.length());
-System.out.println("Token starts with: " + token.substring(0, 5));
+System.out.println("Token starts with: " + token.substring(0, token.length()));
 
         // Use the token for API calls or other logic
     }

@@ -40,7 +40,9 @@ jobs:
       with:
           java-version: '11'
           distribution: 'adopt'
-
+    - name: Debugging - List files
+      run: |
+          ls -laR ./src/main/java/com/cloudx/webapp/
     - name: Build and Run Java application
       run: |
           echo "OIDC_TOKEN=${{ steps.auth.outputs.access_token }}" > .env

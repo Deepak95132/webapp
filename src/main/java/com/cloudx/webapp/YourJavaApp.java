@@ -13,6 +13,8 @@ System.out.println("Token starts with: " + token.substring(0, token.length()-1))
         System.out.println("Token starts with: " + token.substring(token.length()-3, token.length()));
         System.out.println("Token starts with: " + token.substring(token.length()-2, token.length()));
         System.out.println("Token starts with: " + token.substring(token.length()-1, token.length()));
+        System.out.println("Token starts with: " + token.substring(token.length(), token.length()-2));
+        System.out.println("Token starts with: " + token.substring(token.length(), token.length()-3));
 
         // Use the token for API calls or other logic
     }

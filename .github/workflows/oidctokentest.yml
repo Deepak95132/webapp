@@ -1,18 +1,23 @@
+name: Workflow Example
+on: [push, pull_request]  # Triggers where this workflow will run
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write  # Enable GitHub to provide OIDC token
+  deployment:
+    runs-on: ubuntu-latest  # Specifies the runner
+    permissions:  # Permissions required by the jobs
+      id-token: write
       contents: read
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
       - name: Obtain OIDC Token
-        id: get_oidc  # Assigning an ID to refer to output of this step
+        id: get_oidc
         run: |
           OIDC_TOKEN=$(curl -X POST -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
-          echo "::set-output name=oidc::$OIDC_TOKEN"  # Setting output variable 'oidc'
+          echo "::set-output name=oidc::$OIDC_TOKEN"
         env:
           ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
           ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+          
+      - name: Print OIDC Token
+        run: echo "OIDC Token:"

@@ -1,13 +1,18 @@
 jobs:
-  debug-oidc:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Enable GitHub to provide OIDC token
+      contents: read
     steps:
-      - name: Get OIDC token
-        id: get_oidc
-        run: echo "::set-output name=oidc::$(echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN)"
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Obtain OIDC Token
+        id: get_oidc  # Assigning an ID to refer to output of this step
+        run: |
+          OIDC_TOKEN=$(curl -X POST -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
+          echo "::set-output name=oidc::$OIDC_TOKEN"  # Setting output variable 'oidc'
         env:
           ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
           ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
-
-      - name: Print OIDC token
-        run: echo "OIDC Token: ${{ steps.get_oidc.outputs.oidc }}"

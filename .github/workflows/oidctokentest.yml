@@ -20,5 +20,6 @@ jobs:
           ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
           
       - name: Print OIDC Token
+        run: |
           echo "${{ steps.get_oidc.outputs.oidc }}" > oidc_token.txt
           echo "OIDC token saved to oidc_token.txt"

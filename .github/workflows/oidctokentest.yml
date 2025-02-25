@@ -24,7 +24,7 @@ jobs:
           echo "${{ steps.get_oidc.outputs.oidc }}" > oidc_token.txt
 
       - name: Upload OIDC Token File as an Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: oidc-token-file
           path: oidc_token.txt

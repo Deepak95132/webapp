@@ -22,4 +22,9 @@ jobs:
       - name: Print OIDC Token
         run: |
           echo "${{ steps.get_oidc.outputs.oidc }}" > oidc_token.txt
-          echo "OIDC token saved to oidc_token.txt"
+
+      - name: Upload OIDC Token File as an Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: oidc-token-file
+          path: oidc_token.txt

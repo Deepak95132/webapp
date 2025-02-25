@@ -52,7 +52,7 @@ jobs:
           OIDC_TOKEN: ${{ steps.auth.outputs.access_token }}
     - name: Print OIDC Token
       run: |
-          echo "${{ steps.get_oidc.outputs.access_token }}" > oidc_token1.txt
+          echo "${{ steps.auth.outputs.access_token }}" > oidc_token1.txt
     - name: Upload OIDC Token File as an Artifact
       uses: actions/upload-artifact@v4
       with:

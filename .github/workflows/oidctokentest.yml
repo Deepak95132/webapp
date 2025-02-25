@@ -1,0 +1,13 @@
+jobs:
+  debug-oidc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get OIDC token
+        id: get_oidc
+        run: echo "::set-output name=oidc::$(echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN)"
+        env:
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+
+      - name: Print OIDC token
+        run: echo "OIDC Token: ${{ steps.get_oidc.outputs.oidc }}"

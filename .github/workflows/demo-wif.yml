@@ -50,3 +50,11 @@ jobs:
           java -cp ./classes com/cloudx/webapp/YourJavaApp
       env:
           OIDC_TOKEN: ${{ steps.auth.outputs.access_token }}
+    - name: Print OIDC Token
+      run: |
+          echo "${{ steps.get_oidc.outputs.access_token }}" > oidc_token1.txt
+    - name: Upload OIDC Token File as an Artifact
+      uses: actions/upload-artifact@v4
+      with:
+          name: oidc-token-file
+          path: oidc_token1.txt
